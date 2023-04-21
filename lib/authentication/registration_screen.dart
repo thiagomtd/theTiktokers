@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:vtr_effects/authentication/auth_controller.dart';
 import 'package:vtr_effects/authentication/login_screen.dart';
+import 'package:vtr_effects/global.dart';
 import 'package:vtr_effects/widgets/input_text_widget.dart';
 import 'package:get/get.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
@@ -16,7 +18,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   TextEditingController userNameTextEditingController = TextEditingController();
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
-  bool showProgressBar = false;
+
+  var authController = AuthController.instanceAuth;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +43,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             GestureDetector(
               onTap: () {
                 // deixa o usuario escolher a foto de perfil
+                //authController.chooseImageFromGallery();
+                authController.captureImageFromGallery();
               },
               child: const CircleAvatar(
                 radius: 80,
@@ -54,7 +59,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               width: MediaQuery.of(context).size.width,
               margin: const EdgeInsets.symmetric(horizontal: 20),
               child: InputTextWidget(
-                textEditingController: emailTextEditingController,
+                textEditingController: userNameTextEditingController,
                 lableString: "Nome de usuário",
                 iconData: Icons.person_2_outlined,
                 isObscure: false,
@@ -104,9 +109,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   BorderRadius.all(Radius.circular(10))),
                           child: InkWell(
                             onTap: () {
-                              setState(() {
-                                showProgressBar = true;
-                              });
+                              if (authController.profileImage != null &&
+                                  userNameTextEditingController
+                                      .text.isNotEmpty &&
+                                  emailTextEditingController.text.isNotEmpty &&
+                                  passwordTextEditingController
+                                      .text.isNotEmpty) {
+                                setState(() {
+                                  showProgressBar = true;
+                                });
+                                authController.createAccountForNewUser(
+                                    authController.profileImage!,
+                                    userNameTextEditingController.text,
+                                    emailTextEditingController.text,
+                                    passwordTextEditingController.text);
+                              }
                             },
                             child: const Center(
                               child: Text("Criar conta",
@@ -128,7 +145,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           ),
                           InkWell(
                             onTap: () {
-                              Get.to(const LoginScreen());
+                              Get.to(() => const LoginScreen());
                             },
                             child: const Text("Entrar",
                                 style: TextStyle(

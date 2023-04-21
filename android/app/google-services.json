@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "184511220357",
+    "project_id": "the-tiktokers",
+    "storage_bucket": "the-tiktokers.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:184511220357:android:ed0be01f0efb4006a477ec",
+        "android_client_info": {
+          "package_name": "com.example.vtr_effects"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "184511220357-fcr0qh4v270cfg1khdrbce9k86ilk74m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD39o9foHqu5rKmvAKhk8BVHnjEOAvuDBw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "184511220357-fcr0qh4v270cfg1khdrbce9k86ilk74m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
