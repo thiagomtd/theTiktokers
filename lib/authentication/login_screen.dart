@@ -12,6 +12,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
+  bool showProgressBar = false;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +58,62 @@ class _LoginScreenState extends State<LoginScreen> {
                   iconData: Icons.lock_outline,
                   isObscure: true,
                 ),
-              )
+              ),
+              const SizedBox(
+                height: 25,
+              ),
+
+              //login button
+              //not have an account
+              showProgressBar == false
+                  ? Column(
+                      children: [
+                        Container(
+                            width: MediaQuery.of(context).size.width - 38,
+                            height: 54,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  showProgressBar = true;
+                                });
+                              },
+                              child: const Center(
+                                child: Text("Login",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w700)),
+                              ),
+                            )),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text(
+                              "Não tem uma conta? ",
+                              style:
+                                  TextStyle(fontSize: 16, color: Colors.grey),
+                            ),
+                            InkWell(
+                              onTap: () {},
+                              child: const Text("Registrar-se.",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            )
+                          ],
+                        )
+                      ],
+                    )
+                  : Container()
             ],
           ),
         ),
