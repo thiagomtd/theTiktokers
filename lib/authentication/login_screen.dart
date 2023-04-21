@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
+import 'package:vtr_effects/authentication/registration_screen.dart';
 import 'package:vtr_effects/widgets/input_text_widget.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -102,8 +104,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   TextStyle(fontSize: 16, color: Colors.grey),
                             ),
                             InkWell(
-                              onTap: () {},
-                              child: const Text("Registrar-se.",
+                              onTap: () {
+                                Get.to(const RegistrationScreen());
+                              },
+                              child: const Text("Registrar-se",
                                   style: TextStyle(
                                     fontSize: 18,
                                     color: Colors.white,
@@ -114,14 +118,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         )
                       ],
                     )
-                  : Container(
-                      child: const SimpleCircularProgressBar(
-                        progressColors: [
-                          Colors.yellowAccent,
-                        ],
-                        animationDuration: 3,
-                        backColor: Colors.white38,
-                      ),
+                  : const SimpleCircularProgressBar(
+                      progressColors: [
+                        Colors.yellowAccent,
+                      ],
+                      animationDuration: 3,
+                      backColor: Colors.white38,
                     )
             ],
           ),
