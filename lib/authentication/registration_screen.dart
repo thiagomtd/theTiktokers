@@ -48,10 +48,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               },
               child: const CircleAvatar(
                 radius: 80,
-                backgroundImage: AssetImage("images/avatar.jpg"),
+                backgroundImage: AssetImage("images/avatar.png"),
                 backgroundColor: Colors.black,
               ),
             ),
+            const SizedBox(
+              height: 15,
+            ),
+            Text("Toque para escolher uma foto de perfil.",
+                style: GoogleFonts.averiaLibre(
+                    fontSize: 18,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.bold)),
             const SizedBox(
               height: 25,
             ),

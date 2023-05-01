@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vtr_effects/authentication/login_screen.dart';
+import 'package:vtr_effects/authentication/registration_screen.dart';
 import 'package:vtr_effects/global.dart';
 import 'user.dart' as userModel;
 
@@ -58,6 +59,9 @@ class AuthController extends GetxController {
           .collection("users")
           .doc(credential.user!.uid)
           .set(user.toJson());
+
+      Get.snackbar("Conta criada", "Conta criada com sucesso");
+      Get.to(() => const LoginScreen());
     } catch (error) {
       Get.snackbar("Falha na criação de conta",
           "Erro ao tentar criar a conta, tente novamente.");
@@ -78,5 +82,23 @@ class AuthController extends GetxController {
     String downloadUrlOfUploadedImage = await taskSnapshot.ref.getDownloadURL();
 
     return downloadUrlOfUploadedImage;
+  }
+
+  void loginUserNow(String userEmail, String userPassword) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: userEmail,
+        password: userPassword,
+      );
+
+      Get.snackbar("Login", "Login realizado com sucesso");
+      showProgressBar = false;
+      Get.to(() => const RegistrationScreen());
+    } catch (error) {
+      Get.snackbar(
+          "Falha no Login", "Erro ao tentar entrar na conta, tente novamente.");
+      showProgressBar = false;
+      Get.to(() => const RegistrationScreen());
+    }
   }
 }
