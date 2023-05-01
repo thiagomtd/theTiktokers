@@ -1,8 +1,10 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 import 'package:video_player/video_player.dart';
 import 'package:vtr_effects/global.dart';
+import 'package:vtr_effects/home/upload_video/upload_controller.dart';
 import 'package:vtr_effects/widgets/input_text_widget.dart';
 
 class UploadForm extends StatefulWidget {
@@ -19,6 +21,7 @@ class UploadForm extends StatefulWidget {
 }
 
 class _UploadFormState extends State<UploadForm> {
+  UploadController uploadVideoController = Get.put(UploadController());
   VideoPlayerController? playerController;
   TextEditingController artistSongTextEditingController =
       TextEditingController();
@@ -66,7 +69,7 @@ class _UploadFormState extends State<UploadForm> {
                     progressColors: [
                       Colors.yellowAccent,
                     ],
-                    animationDuration: 3,
+                    animationDuration: 20,
                     backColor: Colors.white38,
                   )
                 : Column(
@@ -113,7 +116,23 @@ class _UploadFormState extends State<UploadForm> {
                           ),
                         ),
                         child: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            if (artistSongTextEditingController
+                                    .text.isNotEmpty &&
+                                descriptionTextEditingController
+                                    .text.isNotEmpty) {
+                              uploadVideoController
+                                  .saveVideoInformationToFirestoreDatabase(
+                                artistSongTextEditingController.text,
+                                descriptionTextEditingController.text,
+                                widget.videoPath,
+                                context,
+                              );
+                              setState(() {
+                                showProgressBar = true;
+                              });
+                            }
+                          },
                           child: const Center(
                             child: Text(
                               "Enviar",
