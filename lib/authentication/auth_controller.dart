@@ -7,9 +7,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:vtr_effects/authentication/login_screen.dart';
 import 'package:vtr_effects/authentication/registration_screen.dart';
 import 'package:vtr_effects/global.dart';
+import 'package:vtr_effects/home/home_screen.dart';
 import 'user.dart' as userModel;
 
 class AuthController extends GetxController {
+  late Rx<User?> _currentUser;
   late Rx<File?> _pickedFile;
   File? get profileImage => _pickedFile.value;
 
@@ -61,7 +63,6 @@ class AuthController extends GetxController {
           .set(user.toJson());
 
       Get.snackbar("Conta criada", "Conta criada com sucesso");
-      Get.to(() => const LoginScreen());
     } catch (error) {
       Get.snackbar("Falha na criação de conta",
           "Erro ao tentar criar a conta, tente novamente.");
@@ -93,12 +94,31 @@ class AuthController extends GetxController {
 
       Get.snackbar("Login", "Login realizado com sucesso");
       showProgressBar = false;
-      Get.to(() => const RegistrationScreen());
     } catch (error) {
       Get.snackbar(
           "Falha no Login", "Erro ao tentar entrar na conta, tente novamente.");
       showProgressBar = false;
       Get.to(() => const RegistrationScreen());
     }
+  }
+
+  goToScreen(User? currentUser) {
+    //quando nao estiver logado
+    if (currentUser == null) {
+      Get.offAll(LoginScreen());
+    }
+    //se ja estiver logado
+    else {
+      Get.offAll(HomeScreen());
+    }
+  }
+
+  @override
+  void onReady() {
+    super.onReady();
+
+    _currentUser = Rx<User?>(FirebaseAuth.instance.currentUser);
+    _currentUser.bindStream(FirebaseAuth.instance.authStateChanges());
+    ever(_currentUser, goToScreen);
   }
 }
