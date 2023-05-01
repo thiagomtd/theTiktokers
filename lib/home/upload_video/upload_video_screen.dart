@@ -42,11 +42,14 @@ class _UploadVideoScreenState extends State<UploadVideoScreen> {
                       Icon(
                         Icons.image,
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Text(
-                          "Video da Galeria",
-                          style: TextStyle(fontSize: 15),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text(
+                            "Video da Galeria",
+                            maxLines: 3,
+                            style: TextStyle(fontSize: 15),
+                          ),
                         ),
                       )
                     ],
@@ -61,11 +64,14 @@ class _UploadVideoScreenState extends State<UploadVideoScreen> {
                       Icon(
                         Icons.camera_alt_outlined,
                       ),
-                      Padding(
-                        padding: EdgeInsets.all(8),
-                        child: Text(
-                          "Fazer um video com a camera",
-                          style: TextStyle(fontSize: 15),
+                      Expanded(
+                        child: Padding(
+                          padding: EdgeInsets.all(8),
+                          child: Text(
+                            "Fazer video com a camera",
+                            maxLines: 3,
+                            style: TextStyle(fontSize: 15),
+                          ),
                         ),
                       )
                     ],
