@@ -1,6 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 import 'package:video_player/video_player.dart';
+import 'package:vtr_effects/global.dart';
+import 'package:vtr_effects/widgets/input_text_widget.dart';
 
 class UploadForm extends StatefulWidget {
   final File videoFile;
@@ -17,6 +20,10 @@ class UploadForm extends StatefulWidget {
 
 class _UploadFormState extends State<UploadForm> {
   VideoPlayerController? playerController;
+  TextEditingController artistSongTextEditingController =
+      TextEditingController();
+  TextEditingController descriptionTextEditingController =
+      TextEditingController();
 
   @override
   void initState() {
@@ -47,8 +54,83 @@ class _UploadFormState extends State<UploadForm> {
             SizedBox(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height / 1.6,
-              child: VideoPlayer(playerController!),
-            )
+              child: VideoPlayer(
+                playerController!,
+              ),
+            ),
+            const SizedBox(
+              height: 30,
+            ),
+            showProgressBar == true
+                ? const SimpleCircularProgressBar(
+                    progressColors: [
+                      Colors.yellowAccent,
+                    ],
+                    animationDuration: 3,
+                    backColor: Colors.white38,
+                  )
+                : Column(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        child: InputTextWidget(
+                          textEditingController:
+                              artistSongTextEditingController,
+                          lableString: "Artista da musica",
+                          iconData: Icons.music_video_sharp,
+                          isObscure: true,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        child: InputTextWidget(
+                          textEditingController:
+                              descriptionTextEditingController,
+                          lableString: "Descrição",
+                          iconData: Icons.slideshow_sharp,
+                          isObscure: true,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width - 38,
+                        height: 54,
+                        decoration: const BoxDecoration(
+                          color: Colors.white70,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(10),
+                          ),
+                        ),
+                        child: InkWell(
+                          onTap: () {},
+                          child: const Center(
+                            child: Text(
+                              "Enviar",
+                              style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
           ],
         ),
       ),
