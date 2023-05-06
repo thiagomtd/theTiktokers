@@ -8,6 +8,7 @@ import 'package:vtr_effects/authentication/login_screen.dart';
 import 'package:vtr_effects/authentication/registration_screen.dart';
 import 'package:vtr_effects/global.dart';
 import 'package:vtr_effects/home/home_screen.dart';
+import 'package:vtr_effects/home/home.dart';
 import 'user.dart' as userModel;
 
 class AuthController extends GetxController {
@@ -109,7 +110,7 @@ class AuthController extends GetxController {
     }
     //se ja estiver logado
     else {
-      Get.offAll(HomeScreen());
+      Get.offAll(Home());
     }
   }
 

@@ -8,14 +8,28 @@ class ContactScreen extends StatefulWidget {
 }
 
 class _ContactScreenState extends State<ContactScreen> {
-  @override
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text(
-          "Contact Screen",
-          style: TextStyle(
-            color: Colors.white,
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 50,
+              ),
+              Image.asset(
+                "images/vtr_logo.png",
+                width: 300,
+              ),       
+              const Center(
+                child: Text("Contato",
+                    style: TextStyle(
+                        fontSize: 22,
+                        color: Color.fromARGB(255, 255, 255, 255),
+                        fontWeight: FontWeight.w700)),
+              ),      
+            ],
           ),
         ),
       ),
