@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:vtr_effects/home/about_us/about_us_screen.dart';
 import 'package:vtr_effects/home/contact/contact_screen.dart';
 import 'package:vtr_effects/home/home_screen.dart';
+import 'package:vtr_effects/home/products/products_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -41,9 +42,7 @@ class _MainHomeState extends State<Home> {
                                     BorderRadius.all(Radius.circular(10))),
                             child: InkWell(
                               onTap: () {
-                                // setState(() {
-                                    
-                                //   });
+                                Get.offAll(ProductsScreen());
                               },
                               child: const Center(
                                 child: Text("Produtos",
