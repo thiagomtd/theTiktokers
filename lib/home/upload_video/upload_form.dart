@@ -84,7 +84,7 @@ class _UploadFormState extends State<UploadForm> {
                               artistSongTextEditingController,
                           lableString: "Artista da musica",
                           iconData: Icons.music_video_sharp,
-                          isObscure: true,
+                          isObscure: false,
                         ),
                       ),
                       const SizedBox(
@@ -100,7 +100,7 @@ class _UploadFormState extends State<UploadForm> {
                               descriptionTextEditingController,
                           lableString: "Descrição",
                           iconData: Icons.slideshow_sharp,
-                          isObscure: true,
+                          isObscure: false,
                         ),
                       ),
                       const SizedBox(
