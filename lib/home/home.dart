@@ -42,7 +42,10 @@ class _MainHomeState extends State<Home> {
                                     BorderRadius.all(Radius.circular(10))),
                             child: InkWell(
                               onTap: () {
-                                Get.offAll(ProductsScreen());
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => ProductsScreen()),
+                                );
                               },
                               child: const Center(
                                 child: Text("Produtos",
@@ -60,7 +63,10 @@ class _MainHomeState extends State<Home> {
                                     BorderRadius.all(Radius.circular(10))),
                             child: InkWell(
                               onTap: () {
-                                Get.offAll(HomeScreen());
+                                 Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                                );
                               },
                               child: const Center(
                                 child: Text("Rede VTR",
@@ -84,8 +90,11 @@ class _MainHomeState extends State<Home> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             child: InkWell(
-                              onTap: () {           
-                                Get.offAll(AboutUsScreen());
+                              onTap: () {      
+                                 Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => AboutUsScreen()),
+                                );     
                               },
                               child: const Center(
                                 child: Text("Sobre",
@@ -102,8 +111,11 @@ class _MainHomeState extends State<Home> {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10))),
                             child: InkWell(
-                              onTap: () {                                
-                                Get.offAll(ContactScreen());
+                              onTap: () {  
+                                 Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => ContactScreen()),
+                                );                              
                               },
                               child: const Center(
                                 child: Text("Fale Conosco",
