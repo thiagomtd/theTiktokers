@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 import 'package:vtr_effects/authentication/auth_controller.dart';
 import 'package:vtr_effects/authentication/registration_screen.dart';
+import 'package:vtr_effects/home/products/products_screen.dart';
 import 'package:vtr_effects/widgets/input_text_widget.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -102,7 +103,31 @@ class _LoginScreenState extends State<LoginScreen> {
                                         color: Colors.black,
                                         fontWeight: FontWeight.w700)),
                               ),
-                            )),
+                            )
+                          ),
+                        const SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                            width: MediaQuery.of(context).size.width - 38,
+                            height: 54,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: InkWell(
+                              onTap: () {
+                               Get.to(() => const ProductsScreen(parametro: false,));
+                              },
+                              child: const Center(
+                                child: Text("Loja VTR",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w700)),
+                              ),
+                            )
+                          ),
                         const SizedBox(
                           height: 15,
                         ),
