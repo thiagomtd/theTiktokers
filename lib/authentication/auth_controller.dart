@@ -40,7 +40,7 @@ class AuthController extends GetxController {
     _pickedFile = Rx<File?>(File(pickedImageFile!.path));
   }
 
-  void createAccountForNewUser(File imageFile, String userName,
+  void createAccountForNewUser(File? imageFile, String userName,
       String userEmail, String userPassword) async {
     try {
       UserCredential credential =
@@ -48,14 +48,15 @@ class AuthController extends GetxController {
         email: userEmail,
         password: userPassword,
       );
-
-      String imageDownloadUrl = await uploadImageToStorage(imageFile);
+      
+      String imageDownloadUrl = imageFile == null ? '':await uploadImageToStorage(imageFile);
 
       userModel.User user = userModel.User(
         name: userName,
         email: userEmail,
         image: imageDownloadUrl,
         uid: credential.user!.uid,
+        produtos: []
       );
 
       await FirebaseFirestore.instance
