@@ -22,6 +22,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   var authController = AuthController.instanceAuth;
 
   @override
+    void initState() {
+      super.initState();      
+      showProgressBar = false;
+    }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: SingleChildScrollView(

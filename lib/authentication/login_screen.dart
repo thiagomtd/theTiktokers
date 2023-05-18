@@ -20,7 +20,11 @@ class _LoginScreenState extends State<LoginScreen> {
   bool showProgressBar = false;
 
   var authController = AuthController.instanceAuth;
-
+  @override
+    void initState() {
+      super.initState();      
+      showProgressBar = false;
+    }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
