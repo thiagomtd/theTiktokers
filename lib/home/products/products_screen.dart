@@ -1,59 +1,76 @@
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 
 class ProductsScreen extends StatefulWidget {
-  const ProductsScreen({super.key});
+  final bool parametro;
+  const ProductsScreen({required this.parametro});
   
 
   @override
-  State<ProductsScreen> createState() => _ProductsScreenState();
+  State<ProductsScreen> createState() => _ProductsScreenState(parametro2:parametro);
 }
 
 class _ProductsScreenState extends State<ProductsScreen> {
-  final List<String> items = [
-    'Item 1',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 6',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-    'Item 3',
-    'Item 4',
-    'Item 5',
-    'Item 2',
-    'Item 3',
-    'Item 4',
-    'Item 55',
-  ];
+
+  final bool parametro2;
+  _ProductsScreenState({required this.parametro2});
+  List<String> itemsUser = [];  
+  List<Map<String, dynamic>> itemList = [];
+
+  void BuscarItemsDoUser() async{
+    itemsUser.clear();
+    if(parametro2){
+      DocumentSnapshot userDocumentSnapshot = await FirebaseFirestore.instance
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
+      var userDados = (userDocumentSnapshot.data() as Map<String, dynamic>);
+      for (var element in userDados['produtos']) {
+        var j = (element as Map<String, dynamic>)['name'];
+        setState(() {
+          itemsUser.add(j.toString());
+        });
+      }
+    }
+
+    BuscarItems();
+  }
+  void BuscarItems() async{
+
+    itemList.clear();
+
+    var produtcsDocumentSnapshot = await FirebaseFirestore.instance
+          .collection("produtos").get();
+    for (var element in produtcsDocumentSnapshot.docs) {
+      
+      var item = element.data();
+      setState(() {
+        itemList.add(item);
+      });
+    }
+    setState(() {
+      itemList.sort((a, b) {
+        if (itemsUser.contains(a['name']) && !itemsUser.contains(b['name'])) {
+          return -1;
+        } else if (!itemsUser.contains(a['name']) && itemsUser.contains(b['name'])) {
+          return 1;
+        } else {
+          return a['name'].compareTo(b['name']);
+        }
+      });
+    });
+    
+  }
+   @override
+    void initState() {
+      super.initState();
+      BuscarItemsDoUser();
+    }
+  
   @override
+
    Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
@@ -74,118 +91,53 @@ class _ProductsScreenState extends State<ProductsScreen> {
                         fontWeight: FontWeight.w700)),
               ),
               Expanded(
-                child: SingleChildScrollView(
-                child: Column(
-                  children: items.map((item) => Row(
-                    children: [
-    Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(10, 0, 10, 0),
-      child: Material(
-        color: Colors.blue,
-        elevation: 2,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(100),
-        ),
-        child: Container(
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            color: Color.fromARGB(255, 255, 255, 255),
-            // gradient: LinearGradient(
-            //   colors: [
-            //     Color(0xFF7D71F8)
-            //   ],
-            //   stops: [0, 1],
-            //   begin: AlignmentDirectional(0, -1),
-            //   end: AlignmentDirectional(0, 1),
-            // ),
-            borderRadius: BorderRadius.circular(100),
-          ),
-          child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(10, 10, 10, 10),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              // child: Image.network(
-              //   // columnProductRecord.image!,
-              //   width: 100,
-              //   height: 70,
-              //   fit: BoxFit.cover,
-              // ),
-            ),
-          ),
-        ),
-      ),
-    ),
-    Expanded(
-      child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  child: Text(
-                    "Teste2"
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 5, 0, 0),
-                    child: Text(
-                      '\$ Teste'
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    ),
-    Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0, 0, 10, 0),
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Icon(
-            Icons.keyboard_arrow_right,
-            color: Colors.blue,
-            size: 19,
-          ),
-        ],
-      ),
-    ),
-  ],
-                  )).toList(),
+                child: ListView.builder(
+                  itemCount: itemList.length,
+                  itemBuilder: (context, index) {
+                    var item = itemList[index];
+                    return GestureDetector(
+                      onTap: () {
+                        print('Card clicado: ${item['name']}');
+                      },
+                      child: Card(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          child: Container(
+                          color: const Color.fromARGB(255, 19, 24, 0),
+                          padding: const EdgeInsets.all(16.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  CircleAvatar(
+                                    radius: 30,
+                                    backgroundImage: NetworkImage(item['img'].toString()),
+                                  ),
+                                  const SizedBox(width: 16.0),
+                                  Text(
+                                    item['name'],
+                                    style: const TextStyle(fontSize: 18.0),
+                                  ),                                  
+                                  const SizedBox(width: 16.0), 
+                                ],
+                              ),                              
+                              Icon(
+                                Icons.star,
+                                size: 25.0,
+                                color: itemsUser.contains(item['name'])? Colors.yellow:Colors.grey
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
-              ),
-              
-              // Expanded(
-              //   child: SingleChildScrollView(
-              //     child: ListView.builder(
-              //       physics: NeverScrollableScrollPhysics(),
-              //       shrinkWrap: true,
-              //       itemCount: items.length,
-              //       itemBuilder: (context, index) {
-              //         return ListTile(
-              //           title: Text(items[index]),
-              //         );
-              //       },
-              //     ),
-              //   ),
-              // ),
-            ],
-          ),
+            ]
+          )      
     );
   }
 }
