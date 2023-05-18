@@ -4,6 +4,9 @@ import 'package:vtr_effects/home/about_us/about_us_screen.dart';
 import 'package:vtr_effects/home/contact/contact_screen.dart';
 import 'package:vtr_effects/home/home_screen.dart';
 import 'package:vtr_effects/home/products/products_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../authentication/login_screen.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -44,7 +47,7 @@ class _MainHomeState extends State<Home> {
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => ProductsScreen()),
+                                  MaterialPageRoute(builder: (context) => ProductsScreen(parametro:true)),
                                 );
                               },
                               child: const Center(
@@ -125,6 +128,35 @@ class _MainHomeState extends State<Home> {
                                         fontWeight: FontWeight.w700)),
                               ),
                             ))
+                ],),
+                const SizedBox(
+                          height: 15,
+                        ),
+                Row( 
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width /2 - 10,
+                    height: 54,
+                    decoration: const BoxDecoration(
+                        color: Colors.white,
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(10))),
+                    child: InkWell(
+                      
+                      onTap: () {
+                          FirebaseAuth.instance.signOut();
+                          Get.offAll(LoginScreen);                          
+                      },
+                      child: const Center(
+                        child: Text("Sair",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w700)),
+                      ),
+                    )
+                  )
                 ],)
               ],)              
             ],
