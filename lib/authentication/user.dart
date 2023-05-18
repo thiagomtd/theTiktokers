@@ -5,20 +5,14 @@ class User {
   String? uid;
   String? image;
   String? email;
-  String? youtube;
-  String? facebook;
-  String? twitter;
-  String? instagram;
+  List<Map<String, dynamic>>? produtos;
 
   User({
     this.name,
     this.uid,
     this.image,
     this.email,
-    this.youtube,
-    this.facebook,
-    this.twitter,
-    this.instagram,
+    this.produtos,
   });
 
   Map<String, dynamic> toJson() => {
@@ -26,10 +20,7 @@ class User {
         "uid": uid,
         "image": image,
         "email": email,
-        "youtube": youtube,
-        "facebook": facebook,
-        "twitter": twitter,
-        "instagram": instagram,
+        "produtos": produtos,
       };
 
   static User fromSnap(DocumentSnapshot snapshot) {
@@ -39,9 +30,7 @@ class User {
         uid: dataSnapshot["uid"],
         image: dataSnapshot["image"],
         email: dataSnapshot["email"],
-        youtube: dataSnapshot["youtube"],
-        facebook: dataSnapshot["facebook"],
-        twitter: dataSnapshot["twitter"],
-        instagram: dataSnapshot["instagram"]);
+        produtos:dataSnapshot["produtos"]
+      );
   }
 }
