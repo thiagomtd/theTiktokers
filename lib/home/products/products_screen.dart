@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:vtr_effects/home/product/product_screen.dart';
 
 
 class ProductsScreen extends StatefulWidget {
@@ -98,7 +99,13 @@ class _ProductsScreenState extends State<ProductsScreen> {
                     var item = itemList[index];
                     return GestureDetector(
                       onTap: () {
-                        print('Card clicado: ${item['name']}');
+                        if( itemsUser.contains(item['name'])){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => ProductScreen(parametro: item)),
+                          );
+                        }
+                        
                       },
                       onLongPress: () {
                         launch(item['link'].toString());
