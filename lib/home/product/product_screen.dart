@@ -72,7 +72,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => ProductManualScreen()),
+                          MaterialPageRoute(builder: (context) => ProductManualScreen(manual: item['manual'].toString())),
                         );        
                       },
                       child: const Center(
@@ -103,7 +103,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => TermsAndConditionsScreen()),
+                          MaterialPageRoute(builder: (context) => TermsAndConditionsScreen(termos:  item['termo'].toString())),
                         );                  
                       },
                       child: const Center(
