@@ -10,23 +10,26 @@ import '../transfer/transfer_screen.dart';
 
 class ProductScreen extends StatefulWidget {
   final Map<String, dynamic> parametro;
-  const ProductScreen({required this.parametro});
+  final Map<String, dynamic> p2;
+  const ProductScreen({required this.parametro, required this.p2});
   
 
   @override
-  State<ProductScreen> createState() => _ProductScreenState(item:this.parametro);
+  State<ProductScreen> createState() => _ProductScreenState(item:this.parametro, p3:this.p2);
 }
 
 class _ProductScreenState extends State<ProductScreen> {
 
   final Map<String, dynamic> item;
-  _ProductScreenState({required this.item});
+  final Map<String, dynamic> p3;
+  _ProductScreenState({required this.item, required this.p3});
 
-  //  @override
-  //   void initState() {
-  //     super.initState();
-  //   }
-  
+   @override
+    void initState() {
+      super.initState();
+      
+      // print(p3.toString());
+    }
   @override
 
    Widget build(BuildContext context) {
@@ -134,7 +137,7 @@ class _ProductScreenState extends State<ProductScreen> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => TransferScreen()),
+                          MaterialPageRoute(builder: (context) => TransferScreen(parametro: p3,)),
                         );                  
                       },
                       child: const Center(

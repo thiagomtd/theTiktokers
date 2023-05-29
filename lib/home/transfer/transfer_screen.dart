@@ -1,15 +1,50 @@
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class TransferScreen extends StatefulWidget {
-  const TransferScreen({super.key});
+  
+  final Map<String, dynamic> parametro;
+  const TransferScreen({required this.parametro});
 
   @override
-  State<TransferScreen> createState() => _TransferScreenState();
+  State<TransferScreen> createState() => _TransferScreenState(item: parametro);
 }
 
 class _TransferScreenState extends State<TransferScreen> {
 
-TextEditingController email = TextEditingController();
+  final Map<String, dynamic> item;
+  _TransferScreenState({required this.item});
+
+  TextEditingController email = TextEditingController();
+
+  void teste() async {
+    
+    var doc2 = await FirebaseFirestore.instance
+          .collection("users").where('email', isEqualTo: 'teste@ucl.br').get();
+
+    var dd = doc2.docs[0].reference;
+
+    var doc = await FirebaseFirestore.instance
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid);
+          
+    dd.update({
+      'produtos':FieldValue.arrayUnion([item])
+    });
+    doc.update({
+      'produtos':FieldValue.arrayRemove([item])
+    });
+  }
+
+  @override
+    void initState() {
+      super.initState();
+      teste();
+    }
 
   @override
   Widget build(BuildContext context) {

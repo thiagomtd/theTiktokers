@@ -20,6 +20,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
   _ProductsScreenState({required this.parametro2});
   List<String> itemsUser = [];  
   List<Map<String, dynamic>> itemList = [];
+  List<Map<String, dynamic>> itemList2 = [];
 
   void BuscarItemsDoUser() async{
     itemsUser.clear();
@@ -32,6 +33,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
       for (var element in userDados['produtos']) {
         var j = (element as Map<String, dynamic>)['name'];
         setState(() {
+          itemList2.add(element);
           itemsUser.add(j.toString());
         });
       }
@@ -100,9 +102,10 @@ class _ProductsScreenState extends State<ProductsScreen> {
                     return GestureDetector(
                       onTap: () {
                         if( itemsUser.contains(item['name'])){
+                          var obj = itemList2.where((element) => element['name'] == item['name']).toList().first;
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => ProductScreen(parametro: item)),
+                            MaterialPageRoute(builder: (context) => ProductScreen(parametro: item, p2:obj)),
                           );
                         }
                         
