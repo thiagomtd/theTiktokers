@@ -133,12 +133,12 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                   ),                                  
                                   const SizedBox(width: 16.0), 
                                 ],
-                              ),                              
-                              Icon(
-                                Icons.star,
-                                size: 25.0,
-                                color: itemsUser.contains(item['name'])? Colors.yellow:Colors.grey
-                              )
+                              ),
+                              if(itemsUser.contains(item['name']))
+                                Image.asset(
+                                  "images/palheta.png",
+                                  width: 25,
+                                ),    
                             ],
                           ),
                         ),
