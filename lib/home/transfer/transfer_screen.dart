@@ -1,9 +1,8 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:vtr_effects/home/home.dart';
 
 class TransferScreen extends StatefulWidget {
   
@@ -21,11 +20,17 @@ class _TransferScreenState extends State<TransferScreen> {
 
   TextEditingController email = TextEditingController();
 
-  void teste() async {
+  void Transfer(String _email) async {
     
-    var doc2 = await FirebaseFirestore.instance
-          .collection("users").where('email', isEqualTo: 'teste@ucl.br').get();
+    print(_email);
 
+    var doc2 = await FirebaseFirestore.instance
+          .collection("users").where('email', isEqualTo: _email).get();
+
+    if(doc2.docs.isEmpty){
+      Get.snackbar("Falha na transferencia", "Usuário não encontrado", duration: const Duration(seconds: 5));
+      return;
+    }
     var dd = doc2.docs[0].reference;
 
     var doc = await FirebaseFirestore.instance
@@ -38,12 +43,14 @@ class _TransferScreenState extends State<TransferScreen> {
     doc.update({
       'produtos':FieldValue.arrayRemove([item])
     });
+      Get.snackbar("Transferencia", "Suscesso ao transferir equipamento", duration: const Duration(seconds: 5));
+      Get.offAll(() => const Home());
   }
 
   @override
     void initState() {
       super.initState();
-      teste();
+      
     }
 
   @override
@@ -93,7 +100,7 @@ class _TransferScreenState extends State<TransferScreen> {
                     BorderRadius.all(Radius.circular(10))),
             child: InkWell( 
               onTap: ()  {
-                  
+                  Transfer(email.text.toString());
               },
               child: const Center(
                 child: Text("Transferir",
