@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:vtr_effects/home/product/product_screen.dart';
+import 'package:get/get.dart';
 
 
 class ProductsScreen extends StatefulWidget {
@@ -18,6 +19,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
   final bool parametro2;
   _ProductsScreenState({required this.parametro2});
+
+  TextEditingController productIdController = TextEditingController();
+
   List<String> itemsUser = [];  
   List<Map<String, dynamic>> itemList = [];
   List<Map<String, dynamic>> itemList2 = [];
@@ -67,11 +71,54 @@ class _ProductsScreenState extends State<ProductsScreen> {
     });
     
   }
+  
+  Future<bool> VerifyProductId (String productId, String prefixId) async {
+    if(!(productId.startsWith(prefixId, 0))) {
+      return false;
+    }
+
+    QuerySnapshot querySnapshot =
+      await FirebaseFirestore.instance.collection('users').get();
+
+    for (QueryDocumentSnapshot documentSnapshot in querySnapshot.docs) {
+      if (documentSnapshot.exists){
+        var userDados = (documentSnapshot.data() as Map<String, dynamic>);
+        var list = (userDados['produtos'] as List<dynamic>);
+        if(list.any((element) => (element as Map<String, dynamic>)['id'] == productId)){
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+  
+  void AddNewProduct(String productId, Map<String, dynamic> ProductSelected) async {
+    bool v =  await VerifyProductId(productId, ProductSelected['id']);
+    if(v){      
+      Get.snackbar("Falha", "Produto ja registrado!", duration: const Duration(seconds: 5));
+      return;
+    }
+    DocumentSnapshot userDocumentSnapshot = await FirebaseFirestore.instance
+          .collection("users")
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .get();
+    var item = <String, dynamic>{};
+    item['id'] = productId;
+    item['name'] = ProductSelected['name'];
+    userDocumentSnapshot.reference.update({
+      'produtos':FieldValue.arrayUnion([item])
+    });
+    BuscarItemsDoUser();
+    Get.snackbar("Parabens", "Novo produto registrado!", duration: const Duration(seconds: 5));
+  }
+
    @override
     void initState() {
       super.initState();
       BuscarItemsDoUser();
     }
+
+  
   
   @override
 
@@ -107,6 +154,9 @@ class _ProductsScreenState extends State<ProductsScreen> {
                             context,
                             MaterialPageRoute(builder: (context) => ProductScreen(parametro: item, p2:obj)),
                           );
+                        }
+                        else{
+                          openDialog(item);
                         }
                         
                       },
@@ -154,4 +204,27 @@ class _ProductsScreenState extends State<ProductsScreen> {
           )      
     );
   }
+  Future openDialog(Map<String, dynamic> ProductSelected) => showDialog(
+    context: context, 
+    builder: (context) => AlertDialog(
+      title: const Text('Digite o serial do produto'),
+      content: TextField(
+        controller: productIdController,
+        decoration: const InputDecoration(hintText: 'Digite o serial do produto'),
+      ),
+      actions: [
+        TextButton(onPressed: ()
+          {
+            Navigator.of(context).pop(productIdController.text);
+            productIdController.clear();
+          }, 
+          child: const Text('Cancelar')),
+        TextButton(onPressed: (){          
+          AddNewProduct(productIdController.text, ProductSelected);
+          Navigator.of(context).pop(productIdController.text);
+          productIdController.clear();
+        }, child: const Text('Enviar')),
+      ],
+    )
+    );
 }
