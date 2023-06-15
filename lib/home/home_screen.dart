@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:vtr_effects/home/following/followings_videos_screen.dart';
 import 'package:vtr_effects/home/for_you/for_you_video_screen.dart';
+import 'package:vtr_effects/home/home.dart';
 import 'package:vtr_effects/home/profile/profile_screen.dart';
 import 'package:vtr_effects/home/search/search_screen.dart';
 import 'package:vtr_effects/home/upload_video/upload_custom_icon.dart';
@@ -15,22 +17,20 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int screenIndex = 0;
-  List screensList = [
-    ForYouVideosScreen(),
-    SearchScreen(),
-    UploadVideoScreen(),
-    FollowingsVideosScreen(),
-    ProfileScreen()
-  ];
+  List screensList = [ForYouVideosScreen(), UploadVideoScreen(), () => {}];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         onTap: (index) {
-          setState(() {
-            screenIndex = index;
-          });
+          if (index == 2) {
+            Get.offAll(Home());
+          } else {
+            setState(() {
+              screenIndex = index;
+            });
+          }
         },
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.black,
@@ -40,29 +40,17 @@ class _HomeScreenState extends State<HomeScreen> {
         items: const [
           BottomNavigationBarItem(
               icon: Icon(
+                Icons.video_collection_sharp,
+                size: 30,
+              ),
+              label: "Videos"),
+          BottomNavigationBarItem(icon: UploadCustomIcon(), label: ""),
+          BottomNavigationBarItem(
+              icon: Icon(
                 Icons.home,
                 size: 30,
               ),
               label: "Home"),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.search,
-                size: 30,
-              ),
-              label: "Search"),
-          BottomNavigationBarItem(icon: UploadCustomIcon(), label: ""),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.inbox_sharp,
-                size: 30,
-              ),
-              label: "Following"),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person,
-                size: 30,
-              ),
-              label: "Profile"),
         ],
       ),
       body: screensList[screenIndex],

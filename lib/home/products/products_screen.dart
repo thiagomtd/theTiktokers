@@ -71,7 +71,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
 
   Future<bool> VerifyProductId(String productId, String prefixId) async {
     if (!(productId.startsWith(prefixId, 0))) {
-      return false;
+      return true;
     }
 
     QuerySnapshot querySnapshot =
@@ -94,7 +94,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
       String productId, Map<String, dynamic> ProductSelected) async {
     bool v = await VerifyProductId(productId, ProductSelected['id']);
     if (v) {
-      Get.snackbar("Falha", "Produto ja registrado!",
+      Get.snackbar("Falha", "Produto inválido ou já registrado!",
           duration: const Duration(seconds: 5));
       return;
     }

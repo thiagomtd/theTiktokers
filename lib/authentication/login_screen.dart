@@ -39,7 +39,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 "images/vtr_logo.png",
                 width: 300,
               ),
-              Text("Bem Vindo!",
+              Text("Bem-Vindo!",
                   style: GoogleFonts.acme(
                       fontSize: 34,
                       color: Colors.grey,
