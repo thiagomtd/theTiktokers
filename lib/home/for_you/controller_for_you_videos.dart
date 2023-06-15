@@ -13,7 +13,7 @@ class ControllerForYouVideos extends GetxController {
 
     forYouVideosList.bindStream(FirebaseFirestore.instance
         .collection("videos")
-        .orderBy("totalComments", descending: true)
+        .orderBy("publishedDateTime", descending: true)
         .snapshots()
         .map((QuerySnapshot snapshotQuery) {
       List<Video> videosList = [];

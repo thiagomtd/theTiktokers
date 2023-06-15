@@ -12,7 +12,7 @@ class Video {
   String? descriptionTags;
   String? videoUrl;
   String? thumbnailUrl;
-//String? configFilelUrl;
+  String? config;
   int? publishedDateTime;
 
   Video({
@@ -27,7 +27,7 @@ class Video {
     this.descriptionTags,
     this.videoUrl,
     this.thumbnailUrl,
-    //this.configFilelUrl,
+    this.config,
     this.publishedDateTime,
   });
 
@@ -43,7 +43,7 @@ class Video {
         "descriptionTags": descriptionTags,
         "videoUrl": videoUrl,
         "thumbnailUrl": thumbnailUrl,
-        //"configFilelUrl":configFilelUrl,
+        "config":config,
         "publishedDateTime": publishedDateTime,
       };
 
@@ -61,6 +61,7 @@ class Video {
       descriptionTags: docSnapshot["descriptionTags"],
       videoUrl: docSnapshot["videoUrl"],
       thumbnailUrl: docSnapshot["thumbnailUrl"],
+      config: docSnapshot["config"],
       publishedDateTime: docSnapshot["publishedDateTime"],
     );
   }

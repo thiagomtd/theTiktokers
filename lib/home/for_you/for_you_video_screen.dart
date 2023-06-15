@@ -16,6 +16,23 @@ class ForYouVideosScreen extends StatefulWidget {
 }
 
 class _ForYouVideosScreenState extends State<ForYouVideosScreen> {
+  Future openDialog(String msg) async {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Configuração do pedal'),
+        content: Text(msg),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('Fechar')),
+        ],
+      ),
+    );
+  }
+
   final ControllerForYouVideos controllerVideosForYou =
       Get.put(ControllerForYouVideos());
 
@@ -233,25 +250,18 @@ class _ForYouVideosScreenState extends State<ForYouVideosScreen> {
                                   children: [
                                     //share button
                                     IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        openDialog(
+                                            eachVideoInfo.config.toString());
+                                      },
                                       icon: const Icon(
-                                        Icons.share,
+                                        Icons.music_note_sharp,
                                         size: 40,
                                         color: Colors.white,
                                       ),
                                     ),
 
                                     //total shares
-                                    Padding(
-                                      padding: const EdgeInsets.only(left: 8.0),
-                                      child: Text(
-                                        eachVideoInfo.totalShares.toString(),
-                                        style: const TextStyle(
-                                          fontSize: 20,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
                                   ],
                                 ),
 

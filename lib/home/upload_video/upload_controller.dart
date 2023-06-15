@@ -53,6 +53,7 @@ class UploadController extends GetxController {
   }
 
   saveVideoInformationToFirestoreDatabase(
+    String config,
     String artistSongName,
     String descriptionTags,
     String videoFilePath,
@@ -86,11 +87,12 @@ class UploadController extends GetxController {
         videoID: videoID,
         totalComments: 0,
         totalShares: 0,
-        likesList: [0],
+        likesList: [],
         artistSongName: artistSongName,
         descriptionTags: descriptionTags,
         videoUrl: videoDownloadUrl,
         thumbnailUrl: thumbnailDownloadUrl,
+        config: config,
         publishedDateTime: DateTime.now().microsecondsSinceEpoch,
       );
 

@@ -27,6 +27,7 @@ class _UploadFormState extends State<UploadForm> {
       TextEditingController();
   TextEditingController descriptionTextEditingController =
       TextEditingController();
+  TextEditingController configTextEditingController = TextEditingController();
 
   @override
   void initState() {
@@ -96,6 +97,21 @@ class _UploadFormState extends State<UploadForm> {
                           horizontal: 20,
                         ),
                         child: InputTextWidget(
+                          textEditingController: configTextEditingController,
+                          lableString: "Config",
+                          iconData: Icons.music_video_sharp,
+                          isObscure: false,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                        ),
+                        child: InputTextWidget(
                           textEditingController:
                               descriptionTextEditingController,
                           lableString: "Descrição",
@@ -117,14 +133,16 @@ class _UploadFormState extends State<UploadForm> {
                         ),
                         child: InkWell(
                           onTap: () {
-                            if (artistSongTextEditingController
+                            if (configTextEditingController.text.isNotEmpty &&
+                                artistSongTextEditingController
                                     .text.isNotEmpty &&
                                 descriptionTextEditingController
                                     .text.isNotEmpty) {
                               uploadVideoController
                                   .saveVideoInformationToFirestoreDatabase(
-                                artistSongTextEditingController.text,
+                                configTextEditingController.text,
                                 descriptionTextEditingController.text,
+                                artistSongTextEditingController.text,
                                 widget.videoPath,
                                 context,
                               );
