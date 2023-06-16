@@ -46,6 +46,23 @@ dependencies:
   video_compress: ^3.1.2
   url_launcher: ^6.1.10
   timeago: ^3.4.0
+  flutter_native_splash: ^2.2.0+1
+  flutter_launcher_icons: ^0.13.1
+
+flutter_native_splash:
+  color: "#FFFFFFFF"
+  image: "assets/splash.png"
+  android: true
+  ios: true
+
+flutter_icons:
+  image_path: "assets/icon.png"
+  ios: true
+  remove_alpha_ios: true
+  android: "launcher_icon"
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/vtr_logo.png"
+
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +87,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/vtr_logo.png
     - images/
 
   # An image asset can refer to one or more resolution-specific "variants", see

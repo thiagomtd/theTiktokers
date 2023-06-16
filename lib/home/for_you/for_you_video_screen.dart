@@ -260,7 +260,16 @@ class _ForYouVideosScreenState extends State<ForYouVideosScreen> {
                                         color: Colors.white,
                                       ),
                                     ),
-
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 8.0),
+                                      child: Text(
+                                        "Config",
+                                        style: const TextStyle(
+                                          fontSize: 20,
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
                                     //total shares
                                   ],
                                 ),

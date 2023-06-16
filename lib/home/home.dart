@@ -18,7 +18,6 @@ class Home extends StatefulWidget {
 
 class _MainHomeState extends State<Home> {
   Future openDialog(String msg) async {
-    print("OK");
     showDialog(
       context: context,
       builder: (context) => AlertDialog(

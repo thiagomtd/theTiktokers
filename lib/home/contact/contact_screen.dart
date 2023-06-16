@@ -9,15 +9,14 @@ class ContactScreen extends StatefulWidget {
 }
 
 class _ContactScreenState extends State<ContactScreen> {
+  TextEditingController msg = TextEditingController();
+  TextEditingController assunto = TextEditingController();
 
-TextEditingController msg = TextEditingController();
-TextEditingController assunto = TextEditingController();
-
-Future<void> abrirGmail() async {
+  Future<void> abrirGmail() async {
     final Uri params = Uri(
       scheme: 'mailto',
       path: 'ianwandersong12@gmail.com',
-      query: 'subject='+assunto.text+'Reportar&body='+msg.text,
+      query: 'subject=' + assunto.text + 'Reportar&body=' + msg.text,
     );
     String url = params.toString();
     // const url = 'https://flutterando.com.br/';
@@ -28,8 +27,7 @@ Future<void> abrirGmail() async {
     }
   }
 
-
- @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
@@ -42,75 +40,86 @@ Future<void> abrirGmail() async {
               Image.asset(
                 "images/vtr_logo.png",
                 width: 300,
-              ),       
+              ),
               Center(
-                child: Column(
-                  children: [
-                    const Text("Contato",
-                    style: TextStyle(
-                        fontSize: 22,
-                        color: Color.fromARGB(255, 255, 255, 255),
-                        fontWeight: FontWeight.w700)),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.symmetric(horizontal: 20),
-                        child: TextField(
-                          controller: assunto,
-                          maxLines: 1, // Permite várias linhas
-                          keyboardType: TextInputType.multiline,
-                          decoration: const InputDecoration(
-                            labelText: 'Assunto',
-                            border: OutlineInputBorder(),
-                          ),
-                        )
-                      ),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        height: 200,
-                        margin: const EdgeInsets.symmetric(horizontal: 20),
-                        child: TextField(
-                          controller: msg,
-                          maxLines: 20, // Permite várias linhas
-                          keyboardType: TextInputType.multiline,
-                          decoration: const InputDecoration(
-                            labelText: 'Mensagem',
-                            border: OutlineInputBorder(),
-                          ),
-                        )
-                      ),
-                      const SizedBox(
-                        height: 25,
-                      ),
-                    Container(width: MediaQuery.of(context).size.width /2 - 10,
-                            height: 54,
-                            decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: InkWell(
-                              // onTap: () async {
-                              //   await abrirGmail();
-                              // }, 
-                              onTap: ()  {
-                                 launch('mailto:bernardo@ucl.br?subject=${assunto.text}&body=${msg.text}');
-                              },
-                              child: const Center(
-                                child: Text("Enviar",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w700)),
+                  child: Column(
+                children: [
+                  const Text("Contato",
+                      style: TextStyle(
+                          fontSize: 22,
+                          color: Color.fromARGB(255, 255, 255, 255),
+                          fontWeight: FontWeight.w700)),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      child: TextField(
+                        controller: assunto,
+                        maxLines: 1, // Permite várias linhas
+                        keyboardType: TextInputType.multiline,
+                        decoration: const InputDecoration(
+                          labelText: 'Assunto',
+                          border: OutlineInputBorder(),
+                        ),
+                      )),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Container(
+                      width: MediaQuery.of(context).size.width,
+                      height: 200,
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      child: TextField(
+                        controller: msg,
+                        maxLines: 20, // Permite várias linhas
+                        keyboardType: TextInputType.multiline,
+                        decoration: const InputDecoration(
+                          labelText: 'Mensagem',
+                          border: OutlineInputBorder(),
+                        ),
+                      )),
+                  const SizedBox(
+                    height: 25,
+                  ),
+                  Container(
+                      width: MediaQuery.of(context).size.width / 2 - 10,
+                      height: 54,
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: InkWell(
+                        // onTap: () async {
+                        //   await abrirGmail();
+                        // },
+                        onTap: () {
+                          if (assunto.text.isEmpty || msg.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  "Preencha todos os campos!",
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.grey),
+                                ),
                               ),
-                            ))
-                  ],
-                )
-              ),      
+                            );
+                          } else {
+                            abrirGmail();
+                            launch(
+                                'mailto:bernardo@ucl.br?subject=${assunto.text}&body=${msg.text}');
+                          }
+                        },
+                        child: const Center(
+                          child: Text("Enviar",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Color.fromARGB(255, 13, 1, 1),
+                                  fontWeight: FontWeight.bold)),
+                        ),
+                      ))
+                ],
+              )),
             ],
           ),
         ),

@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:vtr_effects/authentication/auth_controller.dart';
 import 'package:vtr_effects/authentication/login_screen.dart';
@@ -8,6 +9,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp().then((value) => Get.put(AuthController()));
+
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
 
   runApp(const MyApp());
 }
@@ -26,3 +31,21 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+//class SplashScreen extends StatelessWidget {
+  //const SplashScreen({Key? key}) : super(key: key);
+  //@override
+  //Widget build(BuildContext context) {
+    //return Scaffold(
+      //body: Container(
+        //decoration: const BoxDecoration(
+          //image: DecorationImage(
+            //image: AssetImage('assets/vtr_logo.png'), // Caminho para a imagem personalizada
+            //fit: BoxFit.cover,
+          //),
+        //),
+        //child: const LoginScreen(), // Widget da tela de login (ou outro widget principal)
+      //),
+    //);
+  //}
+//}
