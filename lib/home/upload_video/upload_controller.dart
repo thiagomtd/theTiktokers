@@ -103,7 +103,7 @@ class UploadController extends GetxController {
 
       showProgressBar = false;
 
-      Get.to(const HomeScreen());
+      Get.offAll(const HomeScreen());
 
       Get.snackbar(
         "Novo Video",
