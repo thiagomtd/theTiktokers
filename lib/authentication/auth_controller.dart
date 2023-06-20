@@ -100,7 +100,7 @@ class AuthController extends GetxController {
       Get.snackbar(
           "Falha no Login", "Erro ao tentar entrar na conta, tente novamente.");
       showProgressBar = false;
-      Get.to(() => const RegistrationScreen());
+      Get.to(() => const LoginScreen());
     }
   }
 

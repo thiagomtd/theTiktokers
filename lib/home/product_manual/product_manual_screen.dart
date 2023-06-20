@@ -33,8 +33,11 @@ class _ProductManualScreenState extends State<ProductManualScreen> {
         const SizedBox(
           height: 50,
         ),
-        Center(
+        Container(
+          width: MediaQuery.of(context).size.width - 38,
+          
           child: Text(manual_,
+          textAlign: TextAlign.justify,
               style: const TextStyle(
                   fontSize: 16,
                   color: Color.fromARGB(255, 255, 255, 255),

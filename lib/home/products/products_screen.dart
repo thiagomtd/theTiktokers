@@ -94,8 +94,16 @@ class _ProductsScreenState extends State<ProductsScreen> {
       String productId, Map<String, dynamic> ProductSelected) async {
     bool v = await VerifyProductId(productId, ProductSelected['id']);
     if (v) {
-      Get.snackbar("Falha", "Produto inválido ou já registrado!",
-          duration: const Duration(seconds: 5));
+      Get.snackbar(
+        "",
+        "",
+        titleText: const Text("Falha",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        messageText: const Text("Produto inválido ou já registrado!",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal)),
+        duration: const Duration(seconds: 5),
+        backgroundColor: Colors.red,
+      );
       return;
     }
     DocumentSnapshot userDocumentSnapshot = await FirebaseFirestore.instance

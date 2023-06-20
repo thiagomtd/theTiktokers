@@ -111,8 +111,15 @@ class UploadController extends GetxController {
       );
     } catch (errorMsg) {
       Get.snackbar(
-        "Falha ao enviar o video",
-        "Erro durante o envio do video, tente novamente",
+        "",
+        "",
+        titleText: const Text("Falha",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        messageText: const Text(
+            "Erro durante o envio do video, tente novamente",
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal)),
+        duration: const Duration(seconds: 5),
+        backgroundColor: Colors.red,
       );
     }
   }

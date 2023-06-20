@@ -22,10 +22,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   var authController = AuthController.instanceAuth;
 
   @override
-    void initState() {
-      super.initState();      
-      showProgressBar = false;
-    }
+  void initState() {
+    super.initState();
+    showProgressBar = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,8 +123,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   BorderRadius.all(Radius.circular(10))),
                           child: InkWell(
                             onTap: () {
-                              if (authController.profileImage != null &&
-                                  userNameTextEditingController
+                              if (userNameTextEditingController
                                       .text.isNotEmpty &&
                                   emailTextEditingController.text.isNotEmpty &&
                                   passwordTextEditingController
@@ -132,7 +132,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   showProgressBar = true;
                                 });
                                 authController.createAccountForNewUser(
-                                    authController.profileImage!,
+                                    authController.profileImage,
                                     userNameTextEditingController.text,
                                     emailTextEditingController.text,
                                     passwordTextEditingController.text);

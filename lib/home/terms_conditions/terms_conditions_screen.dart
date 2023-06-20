@@ -34,8 +34,10 @@ class _TermsAndConditionsScreenState extends State<TermsAndConditionsScreen> {
         const SizedBox(
           height: 50,
         ),
-        Center(
+        Container(
+          width: MediaQuery.of(context).size.width - 38,
           child: Text(termos_,
+              textAlign: TextAlign.justify,
               style: const TextStyle(
                   fontSize: 16,
                   color: Color.fromARGB(255, 255, 255, 255),

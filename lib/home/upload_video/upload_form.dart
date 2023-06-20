@@ -149,6 +149,22 @@ class _UploadFormState extends State<UploadForm> {
                               setState(() {
                                 showProgressBar = true;
                               });
+                            } else {
+                              Get.snackbar(
+                                "",
+                                "",
+                                titleText: const Text("Falha",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold)),
+                                messageText: const Text(
+                                    "Preencha todos os campos",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.normal)),
+                                duration: const Duration(seconds: 5),
+                                backgroundColor: Colors.red,
+                              );
                             }
                           },
                           child: const Center(

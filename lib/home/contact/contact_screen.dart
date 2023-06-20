@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactScreen extends StatefulWidget {
@@ -95,14 +96,20 @@ class _ContactScreenState extends State<ContactScreen> {
                         // },
                         onTap: () {
                           if (assunto.text.isEmpty || msg.text.isEmpty) {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(
-                                content: Text(
-                                  "Preencha todos os campos!",
+                            Get.snackbar(
+                              "",
+                              "",
+                              titleText: const Text("Falha",
                                   style: TextStyle(
-                                      fontSize: 16, color: Colors.grey),
-                                ),
-                              ),
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold)),
+                              messageText: const Text(
+                                  "Preencha todos os campos",
+                                  style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.normal)),
+                              duration: const Duration(seconds: 5),
+                              backgroundColor: Colors.red,
                             );
                           } else {
                             abrirGmail();

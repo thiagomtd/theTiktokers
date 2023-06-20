@@ -21,10 +21,11 @@ class _LoginScreenState extends State<LoginScreen> {
 
   var authController = AuthController.instanceAuth;
   @override
-    void initState() {
-      super.initState();      
-      showProgressBar = false;
-    }
+  void initState() {
+    super.initState();
+    showProgressBar = false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,95 +77,82 @@ class _LoginScreenState extends State<LoginScreen> {
 
               //login button
               //not have an account
-              showProgressBar == false
-                  ? Column(
-                      children: [
-                        Container(
-                            width: MediaQuery.of(context).size.width - 38,
-                            height: 54,
-                            decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: InkWell(
-                              onTap: () {
-                                if (emailTextEditingController
-                                        .text.isNotEmpty &&
-                                    passwordTextEditingController
-                                        .text.isNotEmpty) {
-                                  setState(() {
-                                    showProgressBar = true;
-                                  });
-                                  authController.loginUserNow(
-                                      emailTextEditingController.text,
-                                      passwordTextEditingController.text);
-                                }
-                              },
-                              child: const Center(
-                                child: Text("Login",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w700)),
-                              ),
-                            )
-                          ),
-                        const SizedBox(
-                          height: 15,
+              Column(
+                children: [
+                  Container(
+                      width: MediaQuery.of(context).size.width - 38,
+                      height: 54,
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: InkWell(
+                        onTap: () {
+                          if (emailTextEditingController.text.isNotEmpty &&
+                              passwordTextEditingController.text.isNotEmpty) {
+                            setState(() {
+                              showProgressBar = true;
+                            });
+                            authController.loginUserNow(
+                                emailTextEditingController.text,
+                                passwordTextEditingController.text);
+                          }
+                        },
+                        child: const Center(
+                          child: Text("Login",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w700)),
                         ),
-                        Container(
-                            width: MediaQuery.of(context).size.width - 38,
-                            height: 54,
-                            decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(10))),
-                            child: InkWell(
-                              onTap: () {
-                               Get.to(() => const ProductsScreen(parametro: false,));
-                              },
-                              child: const Center(
-                                child: Text("Loja VTR",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w700)),
-                              ),
-                            )
-                          ),
-                        const SizedBox(
-                          height: 15,
+                      )),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Container(
+                      width: MediaQuery.of(context).size.width - 38,
+                      height: 54,
+                      decoration: const BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(10))),
+                      child: InkWell(
+                        onTap: () {
+                          Get.to(() => const ProductsScreen(
+                                parametro: false,
+                              ));
+                        },
+                        child: const Center(
+                          child: Text("Loja VTR",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w700)),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text(
-                              "Não tem uma conta? ",
-                              style:
-                                  TextStyle(fontSize: 16, color: Colors.grey),
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Get.to(() => const RegistrationScreen());
-                              },
-                              child: const Text("Registrar-se",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            )
-                          ],
-                        )
-                      ],
-                    )
-                  : const SimpleCircularProgressBar(
-                      progressColors: [
-                        Colors.yellowAccent,
-                      ],
-                      animationDuration: 3,
-                      backColor: Colors.white38,
-                    )
+                      )),
+                  const SizedBox(
+                    height: 15,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        "Não tem uma conta? ",
+                        style: TextStyle(fontSize: 16, color: Colors.grey),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Get.to(() => const RegistrationScreen());
+                        },
+                        child: const Text("Registrar-se",
+                            style: TextStyle(
+                              fontSize: 18,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      )
+                    ],
+                  )
+                ],
+              )
             ],
           ),
         ),
