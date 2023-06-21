@@ -67,149 +67,152 @@ class _MainHomeState extends State<Home> {
                 "images/vtr_logo.png",
                 width: 300,
               ),
-              Column(
-                children: [
-                  const SizedBox(
-                    height: 50,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                          width: MediaQuery.of(context).size.width / 2 - 10,
-                          height: 54,
-                          decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        ProductsScreen(parametro: true)),
-                              );
-                            },
-                            child: const Center(
-                              child: Text("Produtos",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w700)),
-                            ),
-                          )),
-                      Container(
-                          width: MediaQuery.of(context).size.width / 2 - 10,
-                          height: 54,
-                          decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => HomeScreen()),
-                              );
-                            },
-                            child: const Center(
-                              child: Text("Rede VTR",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w700)),
-                            ),
-                          ))
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                          width: MediaQuery.of(context).size.width / 2 - 10,
-                          height: 54,
-                          decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AboutUsScreen()),
-                              );
-                            },
-                            child: const Center(
-                              child: Text("Sobre",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w700)),
-                            ),
-                          )),
-                      Container(
-                          width: MediaQuery.of(context).size.width / 2 - 10,
-                          height: 54,
-                          decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => ContactScreen()),
-                              );
-                            },
-                            child: const Center(
-                              child: Text("Fale Conosco",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w700)),
-                            ),
-                          ))
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                          width: MediaQuery.of(context).size.width / 2 - 10,
-                          height: 54,
-                          decoration: const BoxDecoration(
-                              color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
-                          child: InkWell(
-                            onTap: () {
-                              //BuscaNofity();
-                              //openDialog("Teste de notificação");
-                              FirebaseAuth.instance.signOut();
-                              Get.offAll(LoginScreen);
-                            },
-                            child: const Center(
-                              child: Text("Sair",
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w700)),
-                            ),
-                          ))
-                    ],
-                  ),
-                ],
-              )
+              Container(
+                width: MediaQuery.of(context).size.width - 30,
+                child: Column(
+                  children: [
+                    const SizedBox(
+                      height: 50,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                            width: MediaQuery.of(context).size.width / 2 - 20,
+                            height: 54,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ProductsScreen(parametro: true)),
+                                );
+                              },
+                              child: const Center(
+                                child: Text("Produtos",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w700)),
+                              ),
+                            )),
+                        Container(
+                            width: MediaQuery.of(context).size.width / 2 - 20,
+                            height: 54,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => HomeScreen()),
+                                );
+                              },
+                              child: const Center(
+                                child: Text("Rede VTR",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w700)),
+                              ),
+                            ))
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                            width: MediaQuery.of(context).size.width / 2 - 20,
+                            height: 54,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => AboutUsScreen()),
+                                );
+                              },
+                              child: const Center(
+                                child: Text("Sobre",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w700)),
+                              ),
+                            )),
+                        Container(
+                            width: MediaQuery.of(context).size.width / 2 - 20,
+                            height: 54,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ContactScreen()),
+                                );
+                              },
+                              child: const Center(
+                                child: Text("Fale Conosco",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w700)),
+                              ),
+                            ))
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                            width: MediaQuery.of(context).size.width / 2 - 10,
+                            height: 54,
+                            decoration: const BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(10))),
+                            child: InkWell(
+                              onTap: () {
+                                //BuscaNofity();
+                                //openDialog("Teste de notificação");
+                                FirebaseAuth.instance.signOut();
+                                Get.offAll(LoginScreen);
+                              },
+                              child: const Center(
+                                child: Text("Sair",
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w700)),
+                              ),
+                            ))
+                      ],
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
