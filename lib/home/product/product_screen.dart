@@ -1,11 +1,10 @@
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:url_launcher/url_launcher.dart';
-
-import '../product_manual/product_manual_screen.dart';
+import '../product_manual/PDFScreen.dart';
 import '../terms_conditions/terms_conditions_screen.dart';
 import '../transfer/transfer_screen.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:dio/dio.dart';
 
 
 class ProductScreen extends StatefulWidget {
@@ -23,12 +22,30 @@ class _ProductScreenState extends State<ProductScreen> {
   final Map<String, dynamic> item;
   final Map<String, dynamic> p3;
   _ProductScreenState({required this.item, required this.p3});
+  
+    String? filePath;
+    Future<String> _downloadPDF(String pdfUrl) async {
+      print(pdfUrl);
+      final dio = Dio();
+      final dir = await getTemporaryDirectory();
+      final filePath = '${dir.path}/meu_arquivo.pdf';
 
+      await dio.download(pdfUrl, filePath);
+      
+      return filePath;
+    }
+    void teste() async{
+      String pdfUrl = await FirebaseStorage.instance.ref(item['manual'].toString()).getDownloadURL();
+      
+      var filePath2 = await _downloadPDF(pdfUrl);
+      setState(() {
+        filePath = filePath2;
+      });
+    }
    @override
     void initState() {
       super.initState();
-      
-      // print(p3.toString());
+      teste();
     }
   @override
 
@@ -67,15 +84,22 @@ class _ProductScreenState extends State<ProductScreen> {
                   Container(
                     width: MediaQuery.of(context).size.width - 20,
                     height: 54,
-                    decoration: const BoxDecoration(
-                        color: Colors.white,
+                    decoration:  BoxDecoration(
+                        color: filePath == null? Colors.grey:Colors.white,
                         borderRadius:
-                            BorderRadius.all(Radius.circular(10))),
+                            const BorderRadius.all(Radius.circular(10))),
                     child: InkWell(                      
                       onTap: () {
-                        Navigator.push(
+                          if(filePath == null){
+                            return;
+                          }
+                          Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => ProductManualScreen(manual: item['manual'].toString())),
+                          MaterialPageRoute(
+                            builder: (context) => PDFScreen(
+                              path: filePath,
+                            ),
+                          ),
                         );        
                       },
                       child: const Center(

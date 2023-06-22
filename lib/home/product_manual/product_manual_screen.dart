@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'PDFScreen.dart';
+
 class ProductManualScreen extends StatefulWidget {
   final String manual;
   const ProductManualScreen({required this.manual});
@@ -11,6 +13,23 @@ class ProductManualScreen extends StatefulWidget {
 class _ProductManualScreenState extends State<ProductManualScreen> {
   final String manual_;
   _ProductManualScreenState({required this.manual_});
+
+//   Navigator.push(
+//                         context,
+//                         MaterialPageRoute(
+//                           builder: (context) => PDFScreen(path: pathPDF),
+//                         ),
+//                       );
+
+//   Navigator.push(
+//   context,
+//   MaterialPageRoute(
+//     builder: (context) => PdfViewerPage(
+//       pdfUrl: 'URL_DO_PDF',
+//     ),
+//   ),
+// );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

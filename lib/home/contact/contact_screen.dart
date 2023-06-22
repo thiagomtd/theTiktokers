@@ -99,9 +99,7 @@ class _ContactScreenState extends State<ContactScreen> {
                             );
                             return;
                           }
-                          abrirGmail();
-                          
-                          
+                          abrirGmail();                          
                         },
                         child: const Center(
                           child: Text("Enviar",
