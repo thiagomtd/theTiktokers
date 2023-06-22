@@ -13,19 +13,8 @@ class _ContactScreenState extends State<ContactScreen> {
   TextEditingController msg = TextEditingController();
   TextEditingController assunto = TextEditingController();
 
-  Future<void> abrirGmail() async {
-    final Uri params = Uri(
-      scheme: 'mailto',
-      path: 'ianwandersong12@gmail.com',
-      query: 'subject=' + assunto.text + 'Reportar&body=' + msg.text,
-    );
-    String url = params.toString();
-    // const url = 'https://flutterando.com.br/';
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      debugPrint('Could not launch $url');
-    }
+  void abrirGmail() {
+    launch('mailto:bernardo@ucl.br?subject=${assunto.text}&body=${msg.text}');
   }
 
   @override
@@ -91,9 +80,6 @@ class _ContactScreenState extends State<ContactScreen> {
                           color: Colors.white,
                           borderRadius: BorderRadius.all(Radius.circular(10))),
                       child: InkWell(
-                        // onTap: () async {
-                        //   await abrirGmail();
-                        // },
                         onTap: () {
                           if (assunto.text.isEmpty || msg.text.isEmpty) {
                             Get.snackbar(
@@ -111,11 +97,11 @@ class _ContactScreenState extends State<ContactScreen> {
                               duration: const Duration(seconds: 5),
                               backgroundColor: Colors.red,
                             );
-                          } else {
-                            abrirGmail();
-                            launch(
-                                'mailto:bernardo@ucl.br?subject=${assunto.text}&body=${msg.text}');
+                            return;
                           }
+                          abrirGmail();
+                          
+                          
                         },
                         child: const Center(
                           child: Text("Enviar",
