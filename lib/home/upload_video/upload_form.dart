@@ -66,13 +66,7 @@ class _UploadFormState extends State<UploadForm> {
               height: 30,
             ),
             showProgressBar == true
-                ? const SimpleCircularProgressBar(
-                    progressColors: [
-                      Colors.yellowAccent,
-                    ],
-                    animationDuration: 20,
-                    backColor: Colors.white38,
-                  )
+                ? const Center(child: CircularProgressIndicator(color: Colors.yellow,))
                 : Column(
                     children: [
                       Container(
